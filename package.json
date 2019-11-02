@@ -1,0 +1,19 @@
+{
+  "name": "my-accordion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo No tests ready yet"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victor-cordova/my-accordion.git"
+  },
+  "author": "Victor Cordova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/victor-cordova/my-accordion/issues"
+  },
+  "homepage": "https://github.com/victor-cordova/my-accordion#readme"
+}
