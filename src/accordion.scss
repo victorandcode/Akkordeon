@@ -1,3 +1,28 @@
-body {
-  background: red;
+.scm-Accordion {
+  border: 2px solid black;
+}
+
+.csm-Accordion-title {
+  padding: 1rem;
+  border-bottom: 1px solid gray;
+  transition-property: "background-color, color";
+  transition-duration: 400ms;
+  cursor: pointer;
+
+  &.is-expanded {
+    background: black;
+    color: white;
+  }
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+}
+
+
+.csm-Accordion-content {
+  border-bottom: 1px solid gray;
+  margin: 0;
+  padding: 1rem;
 }
