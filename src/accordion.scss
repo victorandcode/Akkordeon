@@ -1,5 +1,7 @@
 $TITLE_COLOR_DEFAULT: black;
+$TITLE_BG_DEFAULT: white;
 $TITLE_COLOR_ACTIVE: white;
+$TITLE_BG_ACTIVE: black;
 $TRANSITION_TIME_TITLE: 400ms;
 
 .scm-Accordion {
@@ -7,6 +9,7 @@ $TRANSITION_TIME_TITLE: 400ms;
 }
 
 .csm-Accordion-title {
+  background-color: $TITLE_BG_DEFAULT;
   border-bottom: 1px solid gray;
   color: $TITLE_COLOR_DEFAULT;
   cursor: pointer;
@@ -51,7 +54,7 @@ $TRANSITION_TIME_TITLE: 400ms;
 
 
   &.is-expanded {
-    background: black;
+    background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
     .expansionIcon {
@@ -63,7 +66,7 @@ $TRANSITION_TIME_TITLE: 400ms;
   }
 
   &:hover {
-    background: black;
+    background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
     .expansionIcon {
