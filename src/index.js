@@ -1,5 +1,5 @@
-import { makeAccordion } from "./accordion"
+import { Accordion } from "./accordion"
 import "./accordion.scss"
 
 const element = document.getElementById("my-accordion")
-makeAccordion(element)
+new Accordion(element, { delay: 400 })

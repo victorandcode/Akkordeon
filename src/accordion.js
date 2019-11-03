@@ -1,57 +1,87 @@
 import { slideUp, slideDown } from "./sliding"
 
-/**
- *
- * @param {HTMLElement} element
- */
-export const makeAccordion = element => {
-  const children = element.children
-  const titleNodes = []
-  const contentNodes = []
-  for (let i = 0; i < children.length; i += 2) {
-    titleNodes.push(children[i])
-    contentNodes.push(children[i + 1])
-  }
-  titleNodes.forEach((titleNode, index) => {
-    const contentNode = contentNodes[index]
-    const onTitleClick = () => {
-      toggleTitleNode(titleNodes, titleNode)
-      toggleContentNode(contentNodes, contentNode)
-    }
-    titleNode.addEventListener("click", onTitleClick)
-  })
-  //By default hide everything
-  toggleContentNode(contentNodes, null)
+const DEFAULT_CONFIG = {
+  delay: 400
 }
 
-/**
- *
- * @param {Array<HTMLElement>} allTitleNodes
- * @param {HTMLElement} targetTitleNode
- */
-function toggleTitleNode(allTitleNodes, targetTitleNode) {
-  for (let titleNode of allTitleNodes) {
-    if (titleNode !== targetTitleNode) {
-      titleNode.classList.remove("is-expanded")
-    }
+export class Accordion {
+  constructor(element, config = {}) {
+    const children = element.children
+    this.setConfig(config)
+    this.setTitleAndContentNodes(children)
+    this.isToggling = false
+    this.attachTitleNodesOnClick()
+    //By default hide everything
+    this.toggleContentNode(null)
   }
-  targetTitleNode.classList.toggle("is-expanded")
-}
 
-/**
- *
- * @param {Array<HTMLElement>} allContentNodes
- * @param {HTMLElement} contentNode
- */
-const toggleContentNode = (allContentNodes, targetContentNode) => {
-  for (let contentNode of allContentNodes) {
-    if (contentNode !== targetContentNode) {
-      slideUp(contentNode)
+  setConfig(config) {
+    this.config = {
+      ...DEFAULT_CONFIG,
+      config
     }
   }
-  if (getComputedStyle(targetContentNode).display === "none") {
-    slideDown(targetContentNode)
-  } else {
-    slideUp(targetContentNode)
+
+  /**
+   *
+   * @param {Array<HTMLElement} children
+   */
+  setTitleAndContentNodes(children) {
+    const titleNodes = []
+    const contentNodes = []
+    for (let i = 0; i < children.length; i += 2) {
+      titleNodes.push(children[i])
+      contentNodes.push(children[i + 1])
+    }
+    this.titleNodes = titleNodes
+    this.contentNodes = contentNodes
+  }
+
+  attachTitleNodesOnClick() {
+    this.titleNodes.forEach((titleNode, index) => {
+      const contentNode = this.contentNodes[index]
+      const onTitleClick = () => {
+        if (this.isToggling) {
+          return
+        }
+        this.isToggling = true
+        this.toggleTitleNode(titleNode)
+        this.toggleContentNode(contentNode)
+        setTimeout(() => {
+          this.isToggling = false
+        }, this.config.delay)
+      }
+      titleNode.addEventListener("click", onTitleClick)
+    })
+  }
+
+  /**
+   *
+   * @param {HTMLElement} targetTitleNode
+   */
+  toggleTitleNode(targetTitleNode) {
+    for (let titleNode of this.titleNodes) {
+      if (titleNode !== targetTitleNode) {
+        titleNode.classList.remove("is-expanded")
+      }
+    }
+    targetTitleNode.classList.toggle("is-expanded")
+  }
+
+  /**
+   *
+   * @param {HTMLElement} targetContentNode
+   */
+  toggleContentNode(targetContentNode) {
+    for (let contentNode of this.contentNodes) {
+      if (contentNode !== targetContentNode) {
+        slideUp(contentNode)
+      }
+    }
+    if (getComputedStyle(targetContentNode).display === "none") {
+      slideDown(targetContentNode)
+    } else {
+      slideUp(targetContentNode)
+    }
   }
 }
