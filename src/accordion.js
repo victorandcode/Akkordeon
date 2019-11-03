@@ -1,7 +1,8 @@
 import { slideUp, slideDown } from "./sliding"
 
 const DEFAULT_CONFIG = {
-  delay: 400
+  delay: 400,
+  openMultiplePanels: false
 }
 
 export class Accordion {
@@ -15,10 +16,14 @@ export class Accordion {
     this.hideAllContentNodesButTarget(null)
   }
 
+  /**
+   *
+   * @param {Object} config
+   */
   setConfig(config) {
     this.config = {
       ...DEFAULT_CONFIG,
-      config
+      ...config
     }
   }
 
@@ -60,9 +65,12 @@ export class Accordion {
    * @param {HTMLElement} targetTitleNode
    */
   toggleTitleNode(targetTitleNode) {
-    for (let titleNode of this.titleNodes) {
-      if (titleNode !== targetTitleNode) {
-        titleNode.classList.remove("is-expanded")
+    // If multiple panels can be opened, then leave the others as they are
+    if (!this.config.openMultiplePanels) {
+      for (let titleNode of this.titleNodes) {
+        if (titleNode !== targetTitleNode) {
+          titleNode.classList.remove("is-expanded")
+        }
       }
     }
     targetTitleNode.classList.toggle("is-expanded")
@@ -85,7 +93,9 @@ export class Accordion {
    * @param {HTMLElement} targetContentNode
    */
   toggleContentNode(targetContentNode) {
-    this.hideAllContentNodesButTarget(targetContentNode)
+    if (!this.config.openMultiplePanels) {
+      this.hideAllContentNodesButTarget(targetContentNode)
+    }
     if (getComputedStyle(targetContentNode).display === "none") {
       slideDown(targetContentNode, this.config.delay)
     } else {
