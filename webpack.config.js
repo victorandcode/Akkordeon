@@ -6,10 +6,18 @@ module.exports = {
   devServer: {
     contentBase: "./dist"
   },
+  devtool: "inline-source-map",
   entry: "./src/index.js",
   mode: "production",
   module: {
     rules: [
+      {
+        test: /\.js$/i,
+        exclude: /(node_modules)/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
       {
         test: /\.s[ac]ss$/i,
         use: ["style-loader", "css-loader", "sass-loader"]
