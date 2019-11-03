@@ -75,7 +75,7 @@ export class Accordion {
   hideAllContentNodesButTarget(targetContentNode) {
     for (let contentNode of this.contentNodes) {
       if (contentNode !== targetContentNode) {
-        slideUp(contentNode)
+        slideUp(contentNode, this.config.delay)
       }
     }
   }
@@ -87,9 +87,9 @@ export class Accordion {
   toggleContentNode(targetContentNode) {
     this.hideAllContentNodesButTarget(targetContentNode)
     if (getComputedStyle(targetContentNode).display === "none") {
-      slideDown(targetContentNode)
+      slideDown(targetContentNode, this.config.delay)
     } else {
-      slideUp(targetContentNode)
+      slideUp(targetContentNode, this.config.delay)
     }
   }
 }

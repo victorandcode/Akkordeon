@@ -33,7 +33,9 @@ export const slideDown = (element, duration = DEFAULT_DURATION) => {
   element.style.removeProperty("display")
   let display = window.getComputedStyle(element).display
 
-  if (display === "none") display = "block"
+  if (display === "none") {
+    display = "block"
+  }
 
   element.style.display = display
   let height = element.offsetHeight
@@ -52,7 +54,7 @@ export const slideDown = (element, duration = DEFAULT_DURATION) => {
   element.style.removeProperty("padding-bottom")
   element.style.removeProperty("margin-top")
   element.style.removeProperty("margin-bottom")
-  window.setTimeout(() => {
+  setTimeout(() => {
     element.style.removeProperty("height")
     element.style.removeProperty("overflow")
     element.style.removeProperty("transition-duration")
