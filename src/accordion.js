@@ -12,7 +12,7 @@ export class Accordion {
     this.isToggling = false
     this.attachTitleNodesOnClick()
     //By default hide everything
-    this.toggleContentNode(null)
+    this.hideAllContentNodesButTarget(null)
   }
 
   setConfig(config) {
@@ -70,14 +70,22 @@ export class Accordion {
 
   /**
    *
-   * @param {HTMLElement} targetContentNode
+   * @param {HTMLElement|null} targetContentNode
    */
-  toggleContentNode(targetContentNode) {
+  hideAllContentNodesButTarget(targetContentNode) {
     for (let contentNode of this.contentNodes) {
       if (contentNode !== targetContentNode) {
         slideUp(contentNode)
       }
     }
+  }
+
+  /**
+   *
+   * @param {HTMLElement} targetContentNode
+   */
+  toggleContentNode(targetContentNode) {
+    this.hideAllContentNodesButTarget(targetContentNode)
     if (getComputedStyle(targetContentNode).display === "none") {
       slideDown(targetContentNode)
     } else {
