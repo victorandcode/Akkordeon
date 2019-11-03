@@ -1,22 +1,76 @@
+$TITLE_COLOR_DEFAULT: black;
+$TITLE_COLOR_ACTIVE: white;
+$TRANSITION_TIME_TITLE: 400ms;
+
 .scm-Accordion {
   border: 2px solid black;
 }
 
 .csm-Accordion-title {
-  padding: 1rem;
   border-bottom: 1px solid gray;
-  transition-property: "background-color, color";
-  transition-duration: 400ms;
+  color: $TITLE_COLOR_DEFAULT;
   cursor: pointer;
+  padding: 1rem;
+  transition-duration: $TRANSITION_TIME_TITLE;
+  transition-property: "background-color, color";
+
+  .expansionIcon {
+    display: inline-block;
+    height: 1rem;
+    position: relative;
+    width: 1rem;
+    margin-right: .5rem;
+
+    &:after, &:before {
+      content: " ";
+      background-color: $TITLE_COLOR_DEFAULT;
+      transition: all $TRANSITION_TIME_TITLE ease-in-out;
+    }
+  
+    // Vertical
+    &:after {
+      bottom: 0%;
+      left: 50%;
+      margin-left: -0.125rem;
+      position: absolute;
+      top: 0%;
+      width: 0.25rem;
+    }
+
+    // Horizontal
+    &:before {
+      height: 0.25rem;
+      left: 0%;
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      margin-top: -0.125rem;
+      width: 1rem;
+    }
+  }
+
 
   &.is-expanded {
     background: black;
-    color: white;
+    color: $TITLE_COLOR_ACTIVE;
+
+    .expansionIcon {
+      &:after {
+        background-color: $TITLE_COLOR_ACTIVE;
+        transform: rotate(90deg);
+      }
+    }
   }
 
   &:hover {
     background: black;
-    color: white;
+    color: $TITLE_COLOR_ACTIVE;
+
+    .expansionIcon {
+      &:after, &:before {
+        background-color: $TITLE_COLOR_ACTIVE;
+      }
+    }
   }
 }
 
