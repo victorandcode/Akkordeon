@@ -9,10 +9,12 @@ $TRANSITION_TIME_TITLE: 400ms;
 }
 
 .csm-Accordion-title {
+  align-items: center;
   background-color: $TITLE_BG_DEFAULT;
   border-bottom: 1px solid gray;
   color: $TITLE_COLOR_DEFAULT;
   cursor: pointer;
+  display: flex;
   padding: 1rem;
   transition-duration: $TRANSITION_TIME_TITLE;
   transition-property: "background-color, color";
