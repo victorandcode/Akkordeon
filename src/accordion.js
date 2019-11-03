@@ -6,35 +6,52 @@ import { slideUp, slideDown } from "./sliding"
  */
 export const makeAccordion = element => {
   const children = element.children
+  const titleNodes = []
+  const contentNodes = []
   for (let i = 0; i < children.length; i += 2) {
-    const titleNode = children[i]
-    const contentNode = children[i + 1]
-    const onTitleClick = () => displayOnlySelected(children, contentNode)
-    initialiseTitle(titleNode, onTitleClick)
+    titleNodes.push(children[i])
+    contentNodes.push(children[i + 1])
   }
+  titleNodes.forEach((titleNode, index) => {
+    const contentNode = contentNodes[index]
+    const onTitleClick = () => {
+      toggleTitleNode(titleNodes, titleNode)
+      toggleContentNode(contentNodes, contentNode)
+    }
+    titleNode.addEventListener("click", onTitleClick)
+  })
   //By default hide everything
-  displayOnlySelected(children, null)
+  toggleContentNode(contentNodes, null)
 }
 
 /**
  *
- * @param {Array<HTMLElement>} elements
+ * @param {Array<HTMLElement>} allTitleNodes
+ * @param {HTMLElement} targetTitleNode
  */
-const displayOnlySelected = (elements, selectedElement) => {
-  for (let i = 1; i < elements.length; i += 2) {
-    const element = elements[i]
-    if (element !== selectedElement) {
-      slideUp(element)
+function toggleTitleNode(allTitleNodes, targetTitleNode) {
+  for (let titleNode of allTitleNodes) {
+    if (titleNode !== targetTitleNode) {
+      titleNode.classList.remove("is-expanded")
     }
   }
-  slideDown(selectedElement)
+  targetTitleNode.classList.toggle("is-expanded")
 }
 
 /**
  *
- * @param {HTMLElement} title
- * @param {MouseEvent} onClick
+ * @param {Array<HTMLElement>} allContentNodes
+ * @param {HTMLElement} contentNode
  */
-function initialiseTitle(title, onClick) {
-  title.addEventListener("click", onClick)
+const toggleContentNode = (allContentNodes, targetContentNode) => {
+  for (let contentNode of allContentNodes) {
+    if (contentNode !== targetContentNode) {
+      slideUp(contentNode)
+    }
+  }
+  if (getComputedStyle(targetContentNode).display === "none") {
+    slideDown(targetContentNode)
+  } else {
+    slideUp(targetContentNode)
+  }
 }
