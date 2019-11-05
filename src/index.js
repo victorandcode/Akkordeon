@@ -4,7 +4,7 @@ import "./accordion.scss"
 const element = document.getElementById("my-accordion")
 const accordionInstance = new Accordion(element, {
   delay: 400,
-  openMultiplePanels: false,
+  canOpenMultiple: false,
   defaultOpened: 0,
   onToggle: (titleElement, contentElement, index) => {
     console.log("The titleElement is", titleElement)

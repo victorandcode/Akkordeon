@@ -4,7 +4,7 @@ const DEFAULT_CONFIG = {
   defaultOpened: null,
   delay: 400,
   onToggle: null,
-  openMultiplePanels: false,
+  canOpenMultiple: false,
 }
 
 export class Accordion {
@@ -96,7 +96,7 @@ export class Accordion {
    */
   tiggleTitleElement(targetTitleElement) {
     // If multiple panels can be opened, then leave the others as they are
-    if (!this.config.openMultiplePanels) {
+    if (!this.config.canOpenMultiple) {
       for (let titleElement of this.titleElements) {
         if (titleElement !== targetTitleElement) {
           titleElement.classList.remove("is-expanded")
@@ -123,7 +123,7 @@ export class Accordion {
    * @param {HTMLElement} targetContentElement
    */
   _toggleItem(targetContentElement) {
-    if (!this.config.openMultiplePanels) {
+    if (!this.config.canOpenMultiple) {
       this._hideAllContentElementsButTarget(targetContentElement)
     }
     // Here lies the problem
