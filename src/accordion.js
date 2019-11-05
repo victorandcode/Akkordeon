@@ -1,7 +1,8 @@
 const DEFAULT_CONFIG = {
-  delay: 400,
   defaultOpened: null,
-  openMultiplePanels: false
+  delay: 400,
+  onToggle: null,
+  openMultiplePanels: false,
 }
 
 export class Accordion {
@@ -34,7 +35,7 @@ export class Accordion {
   _setConfig(config) {
     this.config = {
       ...DEFAULT_CONFIG,
-      ...config
+      ...config,
     }
   }
 
@@ -63,6 +64,9 @@ export class Accordion {
         this.isToggling = true
         this.toggleTitleNode(titleNode)
         this.toggleContentNode(contentNode)
+        if (this.config.onToggle) {
+          this.config.onToggle(titleNode, contentNode, index)
+        }
         setTimeout(() => {
           this.isToggling = false
         }, this.config.delay)
@@ -128,7 +132,7 @@ export class Accordion {
       this.titleNodes[titleNodeIndex].click()
     } else {
       console.warn(
-        `${titleNodeIndex} index not found. Accordion has only ${titleNodeLength} elements`
+        `${titleNodeIndex} index not found. Accordion has only ${titleNodeLength} elements`,
       )
     }
   }
