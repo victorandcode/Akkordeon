@@ -1,18 +1,21 @@
+$ACCORDION_BORDER_COLOR: black;
 $TITLE_COLOR_DEFAULT: black;
 $TITLE_BG_DEFAULT: white;
 $TITLE_COLOR_ACTIVE: white;
+$TITLE_BORDER_BOTTOM_COLOR: gray;
 $TITLE_BG_ACTIVE: black;
 $TRANSITION_TIME_TITLE: 400ms;
 $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
+$CONTENT_BORDER_BOTTOM_COLOR: gray;
 
 .scm-Accordion {
-  border: 0.125rem solid black;
+  border: 0.125rem solid $ACCORDION_BORDER_COLOR;
 }
 
 .csm-Accordion-title {
   align-items: center;
   background-color: $TITLE_BG_DEFAULT;
-  border-bottom: 0.0626rem solid gray;
+  border-bottom: 0.0626rem solid $TITLE_BORDER_BOTTOM_COLOR;
   color: $TITLE_COLOR_DEFAULT;
   cursor: pointer;
   display: flex;
@@ -83,7 +86,7 @@ $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
 
 .csm-Accordion-content {
   background-color: $CONTENT_BG_DEFAULT;
-  border-bottom: 0.0626rem solid gray;
+  border-bottom: 0.0626rem solid $CONTENT_BORDER_BOTTOM_COLOR;
   margin: 0;
   overflow: hidden;
   padding: 1rem;
