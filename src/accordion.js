@@ -24,7 +24,7 @@ export class Accordion {
 
     // Open default if necessary
     if (config.defaultOpened !== null) {
-      this._openDefault(config.defaultOpened)
+      this.toggleItem(config.defaultOpened)
     }
   }
 
@@ -126,13 +126,13 @@ export class Accordion {
     }
   }
 
-  _openDefault(titleNodeIndex) {
+  toggleItem(index) {
     const titleNodeLength = this.titleNodes.length
-    if (titleNodeIndex >= 0 && titleNodeIndex < titleNodeLength) {
-      this.titleNodes[titleNodeIndex].click()
+    if (index >= 0 && index < titleNodeLength) {
+      this.titleNodes[index].click()
     } else {
       console.warn(
-        `${titleNodeIndex} index not found. Accordion has only ${titleNodeLength} elements`,
+        `${index} index not found. Accordion has only ${titleNodeLength} elements`,
       )
     }
   }
