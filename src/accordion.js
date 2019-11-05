@@ -63,7 +63,7 @@ export class Accordion {
         }
         this.isToggling = true
         this.toggleTitleNode(titleNode)
-        this.toggleContentNode(contentNode)
+        this._toggleItem(contentNode)
         if (this.config.onToggle) {
           this.config.onToggle(titleNode, contentNode, index)
         }
@@ -114,7 +114,7 @@ export class Accordion {
    *
    * @param {HTMLElement} targetContentNode
    */
-  toggleContentNode(targetContentNode) {
+  _toggleItem(targetContentNode) {
     if (!this.config.openMultiplePanels) {
       this._hideAllContentNodesButTarget(targetContentNode)
     }
