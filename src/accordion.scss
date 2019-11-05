@@ -3,6 +3,7 @@ $TITLE_BG_DEFAULT: white;
 $TITLE_COLOR_ACTIVE: white;
 $TITLE_BG_ACTIVE: black;
 $TRANSITION_TIME_TITLE: 400ms;
+$CONTENT_BG_DEFAULT: rgb(237, 237, 237);
 
 .scm-Accordion {
   border: 2px solid black;
@@ -19,7 +20,7 @@ $TRANSITION_TIME_TITLE: 400ms;
   transition-duration: $TRANSITION_TIME_TITLE;
   transition-property: "background-color, color";
 
-  .expansionIcon {
+  .csm-Accordion-expansionIcon {
     display: inline-block;
     height: 1rem;
     position: relative;
@@ -59,7 +60,7 @@ $TRANSITION_TIME_TITLE: 400ms;
     background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
-    .expansionIcon {
+    .csm-Accordion-expansionIcon {
       &:after {
         background-color: $TITLE_COLOR_ACTIVE;
         transform: rotate(90deg);
@@ -71,7 +72,7 @@ $TRANSITION_TIME_TITLE: 400ms;
     background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
-    .expansionIcon {
+    .csm-Accordion-expansionIcon {
       &:after, &:before {
         background-color: $TITLE_COLOR_ACTIVE;
       }
@@ -81,7 +82,7 @@ $TRANSITION_TIME_TITLE: 400ms;
 
 
 .csm-Accordion-content {
-  background-color: rgb(237, 237, 237);
+  background-color: $CONTENT_BG_DEFAULT;
   border-bottom: 1px solid gray;
   margin: 0;
   overflow: hidden;
