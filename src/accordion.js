@@ -8,22 +8,22 @@ export class Accordion {
   constructor(element, config = {}) {
     const children = element.children
     // Initialise internal state
-    this.setConfig(config)
-    this.setTitleAndContentNodes(children)
+    this._setConfig(config)
+    this._setTitleAndContentNodes(children)
     this.isToggling = false
 
     // Add click event handler
-    this.attachTitleNodesOnClick()
+    this._attachTitleNodesOnClick()
 
     // Set content nodes attributes
-    this.initialiseContentNodes()
+    this._initialiseContentNodes()
 
     //By default hide everything
-    this.hideAllContentNodesButTarget(null)
+    this._hideAllContentNodesButTarget(null)
 
     // Open default if necessary
     if (config.defaultOpened !== null) {
-      this.openDefault(config.defaultOpened)
+      this._openDefault(config.defaultOpened)
     }
   }
 
@@ -31,7 +31,7 @@ export class Accordion {
    *
    * @param {Object} config
    */
-  setConfig(config) {
+  _setConfig(config) {
     this.config = {
       ...DEFAULT_CONFIG,
       ...config
@@ -42,7 +42,7 @@ export class Accordion {
    *
    * @param {Array<HTMLElement} children
    */
-  setTitleAndContentNodes(children) {
+  _setTitleAndContentNodes(children) {
     const titleNodes = []
     const contentNodes = []
     for (let i = 0; i < children.length; i += 2) {
@@ -53,7 +53,7 @@ export class Accordion {
     this.contentNodes = contentNodes
   }
 
-  attachTitleNodesOnClick() {
+  _attachTitleNodesOnClick() {
     this.titleNodes.forEach((titleNode, index) => {
       const contentNode = this.contentNodes[index]
       const onTitleClick = () => {
@@ -71,7 +71,7 @@ export class Accordion {
     })
   }
 
-  initialiseContentNodes() {
+  _initialiseContentNodes() {
     for (let contentNode of this.contentNodes) {
       contentNode.style.transitionDuration = this.config.delay + "ms"
       contentNode.classList.add("is-hidden")
@@ -98,7 +98,7 @@ export class Accordion {
    *
    * @param {HTMLElement|null} targetContentNode
    */
-  hideAllContentNodesButTarget(targetContentNode) {
+  _hideAllContentNodesButTarget(targetContentNode) {
     for (let contentNode of this.contentNodes) {
       if (contentNode !== targetContentNode) {
         contentNode.classList.add("is-hidden")
@@ -112,7 +112,7 @@ export class Accordion {
    */
   toggleContentNode(targetContentNode) {
     if (!this.config.openMultiplePanels) {
-      this.hideAllContentNodesButTarget(targetContentNode)
+      this._hideAllContentNodesButTarget(targetContentNode)
     }
     // Here lies the problem
     if (targetContentNode.classList.contains("is-hidden")) {
@@ -122,7 +122,7 @@ export class Accordion {
     }
   }
 
-  openDefault(titleNodeIndex) {
+  _openDefault(titleNodeIndex) {
     const titleNodeLength = this.titleNodes.length
     if (titleNodeIndex < titleNodeLength) {
       this.titleNodes[titleNodeIndex].click()
