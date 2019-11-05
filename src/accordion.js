@@ -1,3 +1,5 @@
+import { isElement } from "./dom-validation"
+
 const DEFAULT_CONFIG = {
   defaultOpened: null,
   delay: 400,
@@ -7,6 +9,12 @@ const DEFAULT_CONFIG = {
 
 export class Accordion {
   constructor(element, config = {}) {
+    if (!isElement(element)) {
+      console.error(
+        `Failed to initialise accordion "${element}" is not an object of type Element`,
+      )
+      return
+    }
     const children = element.children
     // Initialise internal state
     this._setConfig(config)
