@@ -46,7 +46,7 @@ export class Accordion {
 
   /**
    *
-   * @param {Array<HTMLElement} children
+   * @param {Array<Element} children
    */
   _setTitleAndContentElements(children) {
     const titleElements = []
@@ -92,7 +92,7 @@ export class Accordion {
 
   /**
    *
-   * @param {HTMLElement} targetTitleElement
+   * @param {Element} targetTitleElement
    */
   _toggleTitleElement(targetTitleElement) {
     // If only one item can be opened, hide the others
@@ -108,7 +108,7 @@ export class Accordion {
 
   /**
    *
-   * @param {HTMLElement|null} targetContentElement
+   * @param {Element|null} targetContentElement
    */
   _hideAllContentElementsButTarget(targetContentElement) {
     for (let contentElement of this.contentElements) {
@@ -120,7 +120,7 @@ export class Accordion {
 
   /**
    *
-   * @param {HTMLElement} targetContentElement
+   * @param {Element} targetContentElement
    */
   _toggleContentElement(targetContentElement) {
     if (!this.config.canOpenMultiple) {
