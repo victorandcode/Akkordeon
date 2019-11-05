@@ -124,7 +124,7 @@ export class Accordion {
 
   _openDefault(titleNodeIndex) {
     const titleNodeLength = this.titleNodes.length
-    if (titleNodeIndex < titleNodeLength) {
+    if (titleNodeIndex >= 0 && titleNodeIndex < titleNodeLength) {
       this.titleNodes[titleNodeIndex].click()
     } else {
       console.warn(
