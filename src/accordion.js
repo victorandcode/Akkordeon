@@ -108,18 +108,6 @@ export class Accordion {
 
   /**
    *
-   * @param {Element|null} targetContentElement
-   */
-  _hideAllContentElementsButTarget(targetContentElement) {
-    for (let contentElement of this.contentElements) {
-      if (contentElement !== targetContentElement) {
-        contentElement.classList.add("is-hidden")
-      }
-    }
-  }
-
-  /**
-   *
    * @param {Element} targetContentElement
    */
   _toggleContentElement(targetContentElement) {
@@ -131,6 +119,18 @@ export class Accordion {
       targetContentElement.classList.remove("is-hidden")
     } else {
       targetContentElement.classList.add("is-hidden")
+    }
+  }
+
+  /**
+   *
+   * @param {Element|null} targetContentElement
+   */
+  _hideAllContentElementsButTarget(targetContentElement) {
+    for (let contentElement of this.contentElements) {
+      if (contentElement !== targetContentElement) {
+        contentElement.classList.add("is-hidden")
+      }
     }
   }
 
