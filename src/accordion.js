@@ -1,5 +1,6 @@
 const DEFAULT_CONFIG = {
   delay: 400,
+  defaultOpened: null,
   openMultiplePanels: false
 }
 
@@ -19,6 +20,11 @@ export class Accordion {
 
     //By default hide everything
     this.hideAllContentNodesButTarget(null)
+
+    // Open default if necessary
+    if (config.defaultOpened !== null) {
+      this.openDefault(config.defaultOpened)
+    }
   }
 
   /**
@@ -113,6 +119,17 @@ export class Accordion {
       targetContentNode.classList.remove("is-hidden")
     } else {
       targetContentNode.classList.add("is-hidden")
+    }
+  }
+
+  openDefault(titleNodeIndex) {
+    const titleNodeLength = this.titleNodes.length
+    if (titleNodeIndex < titleNodeLength) {
+      this.titleNodes[titleNodeIndex].click()
+    } else {
+      console.warn(
+        `${titleNodeIndex} index not found. Accordion has only ${titleNodeLength} elements`
+      )
     }
   }
 }
