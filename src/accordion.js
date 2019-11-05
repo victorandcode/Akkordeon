@@ -27,12 +27,9 @@ export class Accordion {
     // Set content elements attributes
     this._initialiseContentElements()
 
-    //By default hide everything
-    this._hideAllContentElementsButTarget(null)
-
     // Open default if necessary
     if (config.defaultOpened !== null) {
-      this.toggleItem(config.defaultOpened)
+      this.toggleAtIndex(config.defaultOpened)
     }
   }
 
@@ -70,11 +67,13 @@ export class Accordion {
           return
         }
         this.isToggling = true
-        this.tiggleTitleElement(titleElement)
-        this._toggleItem(contentElement)
+        this._toggleTitleElement(titleElement)
+        this._toggleContentElement(contentElement)
         if (this.config.onToggle) {
           this.config.onToggle(titleElement, contentElement, index)
         }
+
+        // While animation is happening, don't allow another click
         setTimeout(() => {
           this.isToggling = false
         }, this.config.delay)
@@ -86,6 +85,7 @@ export class Accordion {
   _initialiseContentElements() {
     for (let contentElement of this.contentElements) {
       contentElement.style.transitionDuration = this.config.delay + "ms"
+      // Set elements hidden by default
       contentElement.classList.add("is-hidden")
     }
   }
@@ -94,7 +94,7 @@ export class Accordion {
    *
    * @param {HTMLElement} targetTitleElement
    */
-  tiggleTitleElement(targetTitleElement) {
+  _toggleTitleElement(targetTitleElement) {
     // If multiple panels can be opened, then leave the others as they are
     if (!this.config.canOpenMultiple) {
       for (let titleElement of this.titleElements) {
@@ -122,7 +122,7 @@ export class Accordion {
    *
    * @param {HTMLElement} targetContentElement
    */
-  _toggleItem(targetContentElement) {
+  _toggleContentElement(targetContentElement) {
     if (!this.config.canOpenMultiple) {
       this._hideAllContentElementsButTarget(targetContentElement)
     }
@@ -134,7 +134,7 @@ export class Accordion {
     }
   }
 
-  toggleItem(index) {
+  toggleAtIndex(index) {
     const titleElementLength = this.titleElements.length
     if (index >= 0 && index < titleElementLength) {
       this.titleElements[index].click()

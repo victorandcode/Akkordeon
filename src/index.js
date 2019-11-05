@@ -4,8 +4,8 @@ import "./accordion.scss"
 const element = document.getElementById("my-accordion")
 const accordionInstance = new Accordion(element, {
   delay: 400,
-  canOpenMultiple: false,
-  defaultOpened: 0,
+  canOpenMultiple: true,
+  defaultOpened: null,
   onToggle: (titleElement, contentElement, index) => {
     console.log("The titleElement is", titleElement)
     console.log("contentElement: ", contentElement)
@@ -15,4 +15,4 @@ const accordionInstance = new Accordion(element, {
 
 document
   .getElementById("toggleItem")
-  .addEventListener("click", () => accordionInstance.toggleItem(1))
+  .addEventListener("click", () => accordionInstance.toggleAtIndex(1))
