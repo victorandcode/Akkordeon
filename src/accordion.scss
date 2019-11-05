@@ -6,13 +6,13 @@ $TRANSITION_TIME_TITLE: 400ms;
 $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
 
 .scm-Accordion {
-  border: 2px solid black;
+  border: 0.125rem solid black;
 }
 
 .csm-Accordion-title {
   align-items: center;
   background-color: $TITLE_BG_DEFAULT;
-  border-bottom: 1px solid gray;
+  border-bottom: 0.0626rem solid gray;
   color: $TITLE_COLOR_DEFAULT;
   cursor: pointer;
   display: flex;
@@ -25,7 +25,7 @@ $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
     height: 1rem;
     position: relative;
     width: 1rem;
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 
     &:after, &:before {
       content: " ";
@@ -83,7 +83,7 @@ $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
 
 .csm-Accordion-content {
   background-color: $CONTENT_BG_DEFAULT;
-  border-bottom: 1px solid gray;
+  border-bottom: 0.0626rem solid gray;
   margin: 0;
   overflow: hidden;
   padding: 1rem;
