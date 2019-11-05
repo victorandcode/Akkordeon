@@ -81,8 +81,18 @@ $TRANSITION_TIME_TITLE: 400ms;
 
 
 .csm-Accordion-content {
-  border-bottom: 1px solid gray;
   background-color: rgb(237, 237, 237);
+  border-bottom: 1px solid gray;
   margin: 0;
+  overflow: hidden;
   padding: 1rem;
+  transition-property: height, padding, margin;
+
+  &.is-hidden {
+    height: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
 }

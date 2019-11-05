@@ -1,5 +1,3 @@
-import { slideUp, slideDown } from "./sliding"
-
 const DEFAULT_CONFIG = {
   delay: 400,
   openMultiplePanels: false
@@ -8,10 +6,17 @@ const DEFAULT_CONFIG = {
 export class Accordion {
   constructor(element, config = {}) {
     const children = element.children
+    // Initialise internal state
     this.setConfig(config)
     this.setTitleAndContentNodes(children)
     this.isToggling = false
+
+    // Add click event handler
     this.attachTitleNodesOnClick()
+
+    // Set content nodes attributes
+    this.initialiseContentNodes()
+
     //By default hide everything
     this.hideAllContentNodesButTarget(null)
   }
@@ -60,6 +65,13 @@ export class Accordion {
     })
   }
 
+  initialiseContentNodes() {
+    for (let contentNode of this.contentNodes) {
+      contentNode.style.transitionDuration = this.config.delay + "ms"
+      contentNode.classList.add("is-hidden")
+    }
+  }
+
   /**
    *
    * @param {HTMLElement} targetTitleNode
@@ -83,7 +95,7 @@ export class Accordion {
   hideAllContentNodesButTarget(targetContentNode) {
     for (let contentNode of this.contentNodes) {
       if (contentNode !== targetContentNode) {
-        slideUp(contentNode, this.config.delay)
+        contentNode.classList.add("is-hidden")
       }
     }
   }
@@ -96,10 +108,11 @@ export class Accordion {
     if (!this.config.openMultiplePanels) {
       this.hideAllContentNodesButTarget(targetContentNode)
     }
-    if (getComputedStyle(targetContentNode).display === "none") {
-      slideDown(targetContentNode, this.config.delay)
+    // Here lies the problem
+    if (targetContentNode.classList.contains("is-hidden")) {
+      targetContentNode.classList.remove("is-hidden")
     } else {
-      slideUp(targetContentNode, this.config.delay)
+      targetContentNode.classList.add("is-hidden")
     }
   }
 }
