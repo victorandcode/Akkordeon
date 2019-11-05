@@ -6,9 +6,9 @@ const accordionInstance = new Accordion(element, {
   delay: 400,
   openMultiplePanels: false,
   defaultOpened: 0,
-  onToggle: (titleNode, contentNode, index) => {
-    console.log("The titleNode is", titleNode)
-    console.log("contentNode: ", contentNode)
+  onToggle: (titleElement, contentElement, index) => {
+    console.log("The titleElement is", titleElement)
+    console.log("contentElement: ", contentElement)
     console.log("index: ", index)
   },
 })

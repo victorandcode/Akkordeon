@@ -10,17 +10,17 @@ export class Accordion {
     const children = element.children
     // Initialise internal state
     this._setConfig(config)
-    this._setTitleAndContentNodes(children)
+    this._setTitleAndContentElements(children)
     this.isToggling = false
 
     // Add click event handler
-    this._attachTitleNodesOnClick()
+    this._attachTitleElementsOnClick()
 
-    // Set content nodes attributes
-    this._initialiseContentNodes()
+    // Set content elements attributes
+    this._initialiseContentElements()
 
     //By default hide everything
-    this._hideAllContentNodesButTarget(null)
+    this._hideAllContentElementsButTarget(null)
 
     // Open default if necessary
     if (config.defaultOpened !== null) {
@@ -43,96 +43,96 @@ export class Accordion {
    *
    * @param {Array<HTMLElement} children
    */
-  _setTitleAndContentNodes(children) {
-    const titleNodes = []
-    const contentNodes = []
+  _setTitleAndContentElements(children) {
+    const titleElements = []
+    const contentElements = []
     for (let i = 0; i < children.length; i += 2) {
-      titleNodes.push(children[i])
-      contentNodes.push(children[i + 1])
+      titleElements.push(children[i])
+      contentElements.push(children[i + 1])
     }
-    this.titleNodes = titleNodes
-    this.contentNodes = contentNodes
+    this.titleElements = titleElements
+    this.contentElements = contentElements
   }
 
-  _attachTitleNodesOnClick() {
-    this.titleNodes.forEach((titleNode, index) => {
-      const contentNode = this.contentNodes[index]
+  _attachTitleElementsOnClick() {
+    this.titleElements.forEach((titleElement, index) => {
+      const contentElement = this.contentElements[index]
       const onTitleClick = () => {
         if (this.isToggling) {
           return
         }
         this.isToggling = true
-        this.toggleTitleNode(titleNode)
-        this._toggleItem(contentNode)
+        this.tiggleTitleElement(titleElement)
+        this._toggleItem(contentElement)
         if (this.config.onToggle) {
-          this.config.onToggle(titleNode, contentNode, index)
+          this.config.onToggle(titleElement, contentElement, index)
         }
         setTimeout(() => {
           this.isToggling = false
         }, this.config.delay)
       }
-      titleNode.addEventListener("click", onTitleClick)
+      titleElement.addEventListener("click", onTitleClick)
     })
   }
 
-  _initialiseContentNodes() {
-    for (let contentNode of this.contentNodes) {
-      contentNode.style.transitionDuration = this.config.delay + "ms"
-      contentNode.classList.add("is-hidden")
+  _initialiseContentElements() {
+    for (let contentElement of this.contentElements) {
+      contentElement.style.transitionDuration = this.config.delay + "ms"
+      contentElement.classList.add("is-hidden")
     }
   }
 
   /**
    *
-   * @param {HTMLElement} targetTitleNode
+   * @param {HTMLElement} targetTitleElement
    */
-  toggleTitleNode(targetTitleNode) {
+  tiggleTitleElement(targetTitleElement) {
     // If multiple panels can be opened, then leave the others as they are
     if (!this.config.openMultiplePanels) {
-      for (let titleNode of this.titleNodes) {
-        if (titleNode !== targetTitleNode) {
-          titleNode.classList.remove("is-expanded")
+      for (let titleElement of this.titleElements) {
+        if (titleElement !== targetTitleElement) {
+          titleElement.classList.remove("is-expanded")
         }
       }
     }
-    targetTitleNode.classList.toggle("is-expanded")
+    targetTitleElement.classList.toggle("is-expanded")
   }
 
   /**
    *
-   * @param {HTMLElement|null} targetContentNode
+   * @param {HTMLElement|null} targetContentElement
    */
-  _hideAllContentNodesButTarget(targetContentNode) {
-    for (let contentNode of this.contentNodes) {
-      if (contentNode !== targetContentNode) {
-        contentNode.classList.add("is-hidden")
+  _hideAllContentElementsButTarget(targetContentElement) {
+    for (let contentElement of this.contentElements) {
+      if (contentElement !== targetContentElement) {
+        contentElement.classList.add("is-hidden")
       }
     }
   }
 
   /**
    *
-   * @param {HTMLElement} targetContentNode
+   * @param {HTMLElement} targetContentElement
    */
-  _toggleItem(targetContentNode) {
+  _toggleItem(targetContentElement) {
     if (!this.config.openMultiplePanels) {
-      this._hideAllContentNodesButTarget(targetContentNode)
+      this._hideAllContentElementsButTarget(targetContentElement)
     }
     // Here lies the problem
-    if (targetContentNode.classList.contains("is-hidden")) {
-      targetContentNode.classList.remove("is-hidden")
+    if (targetContentElement.classList.contains("is-hidden")) {
+      targetContentElement.classList.remove("is-hidden")
     } else {
-      targetContentNode.classList.add("is-hidden")
+      targetContentElement.classList.add("is-hidden")
     }
   }
 
   toggleItem(index) {
-    const titleNodeLength = this.titleNodes.length
-    if (index >= 0 && index < titleNodeLength) {
-      this.titleNodes[index].click()
+    const titleElementLength = this.titleElements.length
+    if (index >= 0 && index < titleElementLength) {
+      this.titleElements[index].click()
     } else {
       console.warn(
-        `${index} index not found. Accordion has only ${titleNodeLength} elements`,
+        `${index} index not found. Accordion has only ${titleElementLength} elements`,
       )
     }
   }
