@@ -1,7 +1,7 @@
 import { isElement } from "./dom-validation"
 
 const DEFAULT_CONFIG = {
-  defaultOpened: null,
+  defaultOpenedIndex: null,
   delay: 400,
   onToggle: null,
   canOpenMultiple: false,
@@ -28,8 +28,8 @@ export class Accordion {
     this._initialiseContentElements()
 
     // Open default if necessary
-    if (config.defaultOpened !== null) {
-      this.toggleAtIndex(config.defaultOpened)
+    if (config.defaultOpenedIndex !== null) {
+      this.toggleAtIndex(config.defaultOpenedIndex)
     }
   }
 
@@ -95,7 +95,7 @@ export class Accordion {
    * @param {HTMLElement} targetTitleElement
    */
   _toggleTitleElement(targetTitleElement) {
-    // If multiple panels can be opened, then leave the others as they are
+    // If only one item can be opened, hide the others
     if (!this.config.canOpenMultiple) {
       for (let titleElement of this.titleElements) {
         if (titleElement !== targetTitleElement) {
