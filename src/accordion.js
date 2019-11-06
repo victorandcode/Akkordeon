@@ -22,7 +22,7 @@ export class Accordion {
     this.isToggling = false
 
     // Add click event handler
-    this._attachTitleElementsOnClick()
+    this._initialiseTitleElements()
 
     // Set content elements attributes
     this._initialiseContentElements()
@@ -59,34 +59,41 @@ export class Accordion {
     this.contentElements = contentElements
   }
 
-  _attachTitleElementsOnClick() {
+  _initialiseTitleElements() {
     this.titleElements.forEach((titleElement, index) => {
       const contentElement = this.contentElements[index]
-      const onTitleClick = () => {
-        if (this.isToggling) {
-          return
-        }
-        this.isToggling = true
-        this._toggleTitleElement(titleElement)
-        this._toggleContentElement(contentElement)
-        if (this.config.onToggle) {
-          this.config.onToggle(titleElement, contentElement, index)
-        }
 
-        // While animation is happening, don't allow another click
-        setTimeout(() => {
-          this.isToggling = false
-        }, this.config.delay)
-      }
-      titleElement.addEventListener("click", onTitleClick)
+      titleElement.addEventListener("click", () =>
+        this._onTitleClick(titleElement, contentElement, index),
+      )
+      titleElement.addEventListener("keydown", e =>
+        this._onTitleKeydown(e, titleElement, contentElement, index),
+      )
+      titleElement.setAttribute("tabindex", "0")
     })
   }
 
-  _initialiseContentElements() {
-    for (let contentElement of this.contentElements) {
-      contentElement.style.transitionDuration = this.config.delay + "ms"
-      // Set elements hidden by default
-      contentElement.classList.add("is-hidden")
+  _onTitleClick(titleElement, contentElement, titleIndex) {
+    if (this.isToggling) {
+      return
+    }
+    this.isToggling = true
+    this._updateTitleElementsIsExpanded(titleElement)
+    this._toggleContentElement(contentElement)
+    if (this.config.onToggle) {
+      this.config.onToggle(titleElement, contentElement, titleIndex)
+    }
+
+    // While animation is happening, don't allow another click
+    setTimeout(() => {
+      this.isToggling = false
+    }, this.config.delay)
+  }
+
+  _onTitleKeydown(event, titleElement, contentElement, titleIndex) {
+    // If key is equal to Enter or Space
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      this._onTitleClick(titleElement, contentElement, titleIndex)
     }
   }
 
@@ -94,7 +101,7 @@ export class Accordion {
    *
    * @param {Element} targetTitleElement
    */
-  _toggleTitleElement(targetTitleElement) {
+  _updateTitleElementsIsExpanded(targetTitleElement) {
     // If only one item can be opened, hide the others
     if (!this.config.canOpenMultiple) {
       for (let titleElement of this.titleElements) {
@@ -104,6 +111,14 @@ export class Accordion {
       }
     }
     targetTitleElement.classList.toggle("is-expanded")
+  }
+
+  _initialiseContentElements() {
+    for (let contentElement of this.contentElements) {
+      contentElement.style.transitionDuration = this.config.delay + "ms"
+      // Set elements hidden by default
+      contentElement.classList.add("is-hidden")
+    }
   }
 
   /**
