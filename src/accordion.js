@@ -8,7 +8,7 @@ const DEFAULT_CONFIG = {
   canOpenMultiple: false,
 }
 
-export class Accordion {
+export class Akkordeon {
   constructor(containerElement, config = {}) {
     if (!isElement(containerElement)) {
       console.error(

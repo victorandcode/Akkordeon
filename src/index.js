@@ -1,8 +1,8 @@
-import { Accordion } from "./accordion"
+import { Akkordeon } from "./accordion"
 import "./accordion.scss"
 
 const element = document.getElementById("my-accordion")
-const accordionInstance = new Accordion(element, {
+const accordionInstance = new Akkordeon(element, {
   delay: 400,
   canOpenMultiple: true,
   defaultOpenedIndex: null,
