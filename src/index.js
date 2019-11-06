@@ -5,7 +5,7 @@ const element = document.getElementById("my-accordion")
 const accordionInstance = new Accordion(element, {
   delay: 400,
   canOpenMultiple: true,
-  defaultOpenedIndex: 2,
+  defaultOpenedIndex: null,
   onToggle: (titleElement, contentElement, index) => {
     console.log("The titleElement is", titleElement)
     console.log("contentElement: ", contentElement)

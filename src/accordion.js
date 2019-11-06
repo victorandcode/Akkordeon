@@ -1,4 +1,5 @@
 import { isElement } from "./dom-validation"
+import { getRandomInt } from "./random"
 
 const DEFAULT_CONFIG = {
   defaultOpenedIndex: null,
@@ -8,20 +9,25 @@ const DEFAULT_CONFIG = {
 }
 
 export class Accordion {
-  constructor(element, config = {}) {
-    if (!isElement(element)) {
+  constructor(containerElement, config = {}) {
+    if (!isElement(containerElement)) {
       console.error(
-        `Failed to initialise accordion "${element}" is not an object of type Element`,
+        `Failed to initialise accordion "${containerElement}" is not an object of type Element`,
       )
       return
     }
-    const children = element.children
+    const children = containerElement.children
     // Initialise internal state
+    this.containerElement = containerElement
     this._setConfig(config)
     this._setTitleAndContentElements(children)
+    this._setUniqueIds()
     this.isToggling = false
 
-    // Add click event handler
+    // Add container element attributes
+    this._initialiseContainerElement()
+
+    // Add title elements attributes
     this._initialiseTitleElements()
 
     // Set content elements attributes
@@ -59,6 +65,14 @@ export class Accordion {
     this.contentElements = contentElements
   }
 
+  _setUniqueIds() {
+    this.ids = this.titleElements.map(() => getRandomInt())
+  }
+
+  _initialiseContainerElement() {
+    this.containerElement.setAttribute("role", "tablist")
+  }
+
   _initialiseTitleElements() {
     this.titleElements.forEach((titleElement, index) => {
       const contentElement = this.contentElements[index]
@@ -69,7 +83,13 @@ export class Accordion {
       titleElement.addEventListener("keydown", e =>
         this._onTitleKeydown(e, titleElement, contentElement, index),
       )
+      titleElement.setAttribute("role", "tab")
       titleElement.setAttribute("tabindex", "0")
+      titleElement.setAttribute("aria-selected", "false")
+      titleElement.setAttribute(
+        "aria-controls",
+        `contentElement-${this.ids[index]}`,
+      )
     })
   }
 
@@ -107,18 +127,29 @@ export class Accordion {
       for (let titleElement of this.titleElements) {
         if (titleElement !== targetTitleElement) {
           titleElement.classList.remove("is-expanded")
+          titleElement.setAttribute("aria-selected", "false")
         }
       }
     }
-    targetTitleElement.classList.toggle("is-expanded")
+
+    if (targetTitleElement.classList.contains("is-expanded")) {
+      targetTitleElement.classList.remove("is-expanded")
+      targetTitleElement.setAttribute("aria-selected", "false")
+    } else {
+      targetTitleElement.classList.add("is-expanded")
+      targetTitleElement.setAttribute("aria-selected", "true")
+    }
   }
 
   _initialiseContentElements() {
-    for (let contentElement of this.contentElements) {
+    this.contentElements.forEach((contentElement, index) => {
       contentElement.style.transitionDuration = this.config.delay + "ms"
       // Set elements hidden by default
       contentElement.classList.add("is-hidden")
-    }
+      contentElement.setAttribute("role", "tabpanel")
+      contentElement.setAttribute("id", `contentElement-${this.ids[index]}`)
+      contentElement.setAttribute("aria-expanded", "false")
+    })
   }
 
   /**
@@ -132,8 +163,10 @@ export class Accordion {
     // Here lies the problem
     if (targetContentElement.classList.contains("is-hidden")) {
       targetContentElement.classList.remove("is-hidden")
+      targetContentElement.setAttribute("aria-expanded", "true")
     } else {
       targetContentElement.classList.add("is-hidden")
+      targetContentElement.setAttribute("aria-expanded", "false")
     }
   }
 
