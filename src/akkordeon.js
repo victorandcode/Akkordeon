@@ -107,6 +107,9 @@ export class Akkordeon {
         "aria-controls",
         `contentElement-${this.ids[index]}`,
       )
+      const expansionIcon = document.createElement("span")
+      expansionIcon.classList.add("Akkordeon-expansionIcon")
+      titleElement.prepend(expansionIcon)
     })
   }
 
