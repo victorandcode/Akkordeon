@@ -1,25 +1,38 @@
 {
   "name": "akkordeon",
   "version": "1.0.0",
-  "description": "",
-  "main": "src/index.js",
+  "description": "An easy to hack, accessible, 0 dependency accordion",
+  "main": "dist/main.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "webpack --config webpack.production.js",
     "start": "webpack-dev-server --open --config webpack.development.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "prepublishOnly": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/victor-cordova/my-accordion.git"
+    "url": "git+https://github.com/victor-cordova/Akkordeon"
   },
   "author": "Victor Cordova",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/victor-cordova/my-accordion/issues"
+    "url": "https://github.com/victor-cordova/Akkordeon/issues"
   },
-  "homepage": "https://github.com/victor-cordova/my-accordion#readme",
+  "homepage": "https://github.com/victor-cordova/Akkordeon#readme",
+  "keywords": [
+    "accordion",
+    "akkordeon",
+    "accessible",
+    "hackable",
+    "extendable",
+    "vanilla",
+    "no-dependencies"
+  ],
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@babel/preset-env": "^7.6.3",
