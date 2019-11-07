@@ -11,7 +11,7 @@
       font-family: 'Rubik', sans-serif;
     }
   </style>
-<link href="main.css" rel="stylesheet"></head>
+<link href="main.css" rel="stylesheet"><script type="text/javascript" src="akkordeon.js"></script></head>
 <body>
   <h1>Accordion demo</h1>
   <button id="toggleItem">Toggle second item</button>
@@ -30,11 +30,23 @@
     </dd>
   </dl>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-  <script type="module">
-      import {addTextToBody} from './utils.mjs';
-    
-      addTextToBody('Modules are pretty cool.');
-    </script>
-<script type="text/javascript" src="akkordeon.js"></script></body>
+  <script>
+    const element = document.getElementById("my-accordion")
+    const accordionInstance = new akkordeon.Akkordeon(element, {
+      delay: 400,
+      canOpenMultiple: true,
+      defaultOpenedIndex: null,
+      onToggle: (titleElement, contentElement, index) => {
+        console.log("The titleElement is", titleElement)
+        console.log("contentElement: ", contentElement)
+        console.log("index: ", index)
+      },
+    })
+
+    document
+      .getElementById("toggleItem")
+      .addEventListener("click", () => accordionInstance.toggleAtIndex(1))
+
+  </script>
+</body>
 </html>
