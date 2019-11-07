@@ -9,6 +9,11 @@ const DEFAULT_CONFIG = {
 }
 
 export class Akkordeon {
+  /**
+   *
+   * @param {Element} containerElement The element that contains the accordion content
+   * @param {Object} config
+   */
   constructor(containerElement, config = {}) {
     if (!isElement(containerElement)) {
       console.error(
@@ -40,8 +45,8 @@ export class Akkordeon {
   }
 
   /**
-   *
-   * @param {Object} config
+   * Saves locally the configuration by overriding the defaults
+   * @param {Object} config The config options
    */
   _setConfig(config) {
     this.config = {
@@ -51,8 +56,10 @@ export class Akkordeon {
   }
 
   /**
-   *
-   * @param {Array<Element} children
+   * Extracts title and content elements and saves them locally.
+   * It assumes that uneven indexes are title elements and even
+   * ones correspond to content elements
+   * @param {Array<Element>} children Child elements of wrapper
    */
   _setTitleAndContentElements(children) {
     const titleElements = []
@@ -65,14 +72,24 @@ export class Akkordeon {
     this.contentElements = contentElements
   }
 
+  /**
+   * Saves unique ids to be used for id attribute
+   */
   _setUniqueIds() {
     this.ids = this.titleElements.map(() => getRandomInt())
   }
 
+  /**
+   * Sets accessibility attribute for container element
+   */
   _initialiseContainerElement() {
     this.containerElement.setAttribute("role", "tablist")
   }
 
+  /**
+   * Sets attributes and callbacks for title elements to be accessible
+   * and interactable
+   */
   _initialiseTitleElements() {
     this.titleElements.forEach((titleElement, index) => {
       const contentElement = this.contentElements[index]
@@ -93,6 +110,12 @@ export class Akkordeon {
     })
   }
 
+  /**
+   *
+   * @param {Element} titleElement Target titleElement
+   * @param {Element} contentElement Associated contentElement
+   * @param {number} titleIndex Index of title element
+   */
   _onTitleClick(titleElement, contentElement, titleIndex) {
     if (this.isToggling) {
       return
@@ -110,6 +133,13 @@ export class Akkordeon {
     }, this.config.delay)
   }
 
+  /**
+   *
+   * @param {Event} event Event object when the title element is clicked
+   * @param {Element} titleElement Target titleElement
+   * @param {Element} contentElement Associated contentElement
+   * @param {Element} titleIndex Index of title element
+   */
   _onTitleKeydown(event, titleElement, contentElement, titleIndex) {
     // If key is equal to Enter or Space
     if (event.keyCode === 13 || event.keyCode === 32) {
@@ -118,8 +148,9 @@ export class Akkordeon {
   }
 
   /**
-   *
-   * @param {Element} targetTitleElement
+   * Updates attributes that signal being expanded for target element
+   * and other title elements if needed
+   * @param {Element} targetTitleElement Target title element
    */
   _updateTitleElementsIsExpanded(targetTitleElement) {
     // If only one item can be opened, hide the others
@@ -141,6 +172,10 @@ export class Akkordeon {
     }
   }
 
+  /**
+   * Sets attributes for content elements to be accessible and have
+   * relevant animation
+   */
   _initialiseContentElements() {
     this.contentElements.forEach((contentElement, index) => {
       contentElement.style.transitionDuration = this.config.delay + "ms"
@@ -153,8 +188,9 @@ export class Akkordeon {
   }
 
   /**
-   *
-   * @param {Element} targetContentElement
+   * Setts attributes related to the visibility of the target content element,
+   * also hides other content elements if necessary
+   * @param {Element} targetContentElement Target content element
    */
   _toggleContentElement(targetContentElement) {
     if (!this.config.canOpenMultiple) {
@@ -171,8 +207,8 @@ export class Akkordeon {
   }
 
   /**
-   *
-   * @param {Element|null} targetContentElement
+   * Hides all content elements except the target element
+   * @param {Element|null} targetContentElement Content element that should not be hidden
    */
   _hideAllContentElementsButTarget(targetContentElement) {
     for (let contentElement of this.contentElements) {
@@ -182,6 +218,10 @@ export class Akkordeon {
     }
   }
 
+  /**
+   * Toggles the hidden state of a target title element
+   * @param {number} index Title index to show/hide
+   */
   toggleAtIndex(index) {
     const titleElementLength = this.titleElements.length
     if (index >= 0 && index < titleElementLength) {

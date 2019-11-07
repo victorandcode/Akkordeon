@@ -1,5 +1,5 @@
 /**
- *
+ * Gets a random integer between two values
  * @param {number} min Minimum value
  * @param {number} max Maximum value
  */
