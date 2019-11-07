@@ -1,6 +1,6 @@
 {
   "name": "akkordeon",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An easy to hack, accessible, 0 dependency accordion",
   "main": "dist/akkordeon.js",
   "files": [
