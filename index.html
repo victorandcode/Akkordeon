@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Accordion Demo</title>
+  <link href="https://fonts.googleapis.com/css?family=Rubik&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Rubik', sans-serif;
+    }
+  </style>
+<link href="main.css" rel="stylesheet"></head>
+<body>
+  <h1>Accordion demo</h1>
+  <button id="toggleItem">Toggle second item</button>
+  <dl id="my-accordion" class="Akkordeon">
+    <dt class="Akkordeon-title"><span class="Akkordeon-expansionIcon"></span> What is an accordion?</dt>
+    <dd class="Akkordeon-content">
+      <p>Colloquially known as a squeezebox, it's a box-shaped musical instrument</p>
+    </dd>
+    <dt class="Akkordeon-title"><span class="Akkordeon-expansionIcon"></span> Where does the name come from?</dt>
+    <dd class="Akkordeon-content">
+      <p>It comes from the German Akkordeon, which is derived from Akkord -- "musical chord, concord of sounds"</p>
+    </dd>
+    <dt class="Akkordeon-title"><span class="Akkordeon-expansionIcon"></span> When should you use one for web development?</dt>
+    <dd class="Akkordeon-content">
+      <p>Whenever you need progressive disclosure. In other words, when you need to highlight some important information (title) and only show details if the user is interested (content).</p>
+    </dd>
+  </dl>
+<script type="text/javascript" src="akkordeon.js"></script></body>
+</html>
