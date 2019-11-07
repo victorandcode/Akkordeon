@@ -21,7 +21,7 @@ $CONTENT_BORDER_BOTTOM_COLOR: gray;
   display: flex;
   padding: 1rem;
   transition-duration: $TRANSITION_TIME_TITLE;
-  transition-property: "background-color, color";
+  transition-property: background-color, color;
 
   .Akkordeon-expansionIcon {
     display: inline-block;
