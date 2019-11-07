@@ -48,4 +48,40 @@ describe("Akkordeon", () => {
       expect(getByText(dl, /prettiest/i).classList).toContain("is-hidden")
     })
   })
+
+  it("opens default when defaultOpenedIndex is passed", () => {
+    new Akkordeon(dl, { defaultOpenedIndex: 1 })
+
+    expect(getByText(dl, /accordions are hard/i).classList).not.toContain(
+      "is-hidden",
+    )
+  })
+
+  it("can open multiple content elements when canOpenMultiple is true", async () => {
+    new Akkordeon(dl, { canOpenMultiple: true })
+
+    getByText(dl, /vanity/i).click()
+    expect(getByText(dl, /prettiest/i).classList).not.toContain("is-hidden")
+
+    await wait(() => {
+      getByText(dl, /anger/i).click()
+      expect(getByText(dl, /accordions are hard/i).classList).not.toContain(
+        "is-hidden",
+      )
+    })
+    await wait(() => {
+      getByText(dl, /envy/i).click()
+      expect(getByText(dl, /his amazing accordion/i).classList).not.toContain(
+        "is-hidden",
+      )
+    })
+  })
+
+  it("executes onToggle callback when title element is clicked", () => {
+    const onToggleSpy = jest.fn()
+    new Akkordeon(dl, { onToggle: onToggleSpy })
+    getByText(dl, /vanity/i).click()
+
+    expect(onToggleSpy).toHaveBeenCalledTimes(1)
+  })
 })
