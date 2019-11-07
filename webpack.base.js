@@ -18,7 +18,9 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "akkordion.js",
+    library: "akkordion",
+    libraryTarget: "umd",
   },
   plugins: [
     new CleanWebpackPlugin(),
