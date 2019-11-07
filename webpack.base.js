@@ -26,6 +26,7 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: "./src/example.html",
+      inject: "head",
     }),
     new MiniCssExtractPlugin(),
   ],
