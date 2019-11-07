@@ -23,7 +23,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "./src/example.html",
     }),
     new MiniCssExtractPlugin(),
   ],

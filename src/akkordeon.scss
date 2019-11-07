@@ -8,11 +8,11 @@ $TRANSITION_TIME_TITLE: 400ms;
 $CONTENT_BG_DEFAULT: rgb(237, 237, 237);
 $CONTENT_BORDER_BOTTOM_COLOR: gray;
 
-.scm-Accordion {
+.Akkordeon {
   border: 0.125rem solid $ACCORDION_BORDER_COLOR;
 }
 
-.csm-Accordion-title {
+.Akkordeon-title {
   align-items: center;
   background-color: $TITLE_BG_DEFAULT;
   border-bottom: 0.0626rem solid $TITLE_BORDER_BOTTOM_COLOR;
@@ -23,7 +23,7 @@ $CONTENT_BORDER_BOTTOM_COLOR: gray;
   transition-duration: $TRANSITION_TIME_TITLE;
   transition-property: "background-color, color";
 
-  .csm-Accordion-expansionIcon {
+  .Akkordeon-expansionIcon {
     display: inline-block;
     height: 1rem;
     position: relative;
@@ -63,7 +63,7 @@ $CONTENT_BORDER_BOTTOM_COLOR: gray;
     background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
-    .csm-Accordion-expansionIcon {
+    .Akkordeon-expansionIcon {
       &:after {
         background-color: $TITLE_COLOR_ACTIVE;
         transform: rotate(90deg);
@@ -75,7 +75,7 @@ $CONTENT_BORDER_BOTTOM_COLOR: gray;
     background-color: $TITLE_BG_ACTIVE;
     color: $TITLE_COLOR_ACTIVE;
 
-    .csm-Accordion-expansionIcon {
+    .Akkordeon-expansionIcon {
       &:after, &:before {
         background-color: $TITLE_COLOR_ACTIVE;
       }
@@ -84,7 +84,7 @@ $CONTENT_BORDER_BOTTOM_COLOR: gray;
 }
 
 
-.csm-Accordion-content {
+.Akkordeon-content {
   background-color: $CONTENT_BG_DEFAULT;
   border-bottom: 0.0626rem solid $CONTENT_BORDER_BOTTOM_COLOR;
   margin: 0;

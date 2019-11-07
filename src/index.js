@@ -1,5 +1,5 @@
-import { Akkordeon } from "./accordion"
-import "./accordion.scss"
+import { Akkordeon } from "./akkordeon"
+import "./akkordeon.scss"
 
 const element = document.getElementById("my-accordion")
 const accordionInstance = new Akkordeon(element, {
