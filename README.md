@@ -5,7 +5,7 @@
 
 <h4 align="center">An easy to hack, accessible, 0 dependency accordion</h4>
 
-TODO: Add gif
+![Demo](./demo.gif)
 
 # Main features
 
