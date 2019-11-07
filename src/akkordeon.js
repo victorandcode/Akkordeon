@@ -39,7 +39,7 @@ export class Akkordeon {
     this._initialiseContentElements()
 
     // Open default if necessary
-    if (config.defaultOpenedIndex !== null) {
+    if (this.config.defaultOpenedIndex !== null) {
       this.toggleAtIndex(config.defaultOpenedIndex)
     }
   }
