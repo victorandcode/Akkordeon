@@ -1,5 +1,5 @@
-import { isElement } from "./dom-validation"
-import { getRandomInt } from "./random"
+import { isElement } from "./utils/dom-validation"
+import { getRandomInt } from "./utils/random"
 
 const DEFAULT_CONFIG = {
   defaultOpenedIndex: null,
