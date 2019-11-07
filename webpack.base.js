@@ -18,8 +18,8 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "akkordion.js",
-    library: "akkordion",
+    filename: "akkordeon.js",
+    library: "akkordeon",
     libraryTarget: "umd",
   },
   plugins: [
