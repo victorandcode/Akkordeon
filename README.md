@@ -75,6 +75,10 @@ There is big debate as to where an accordion icon should be located, based on th
 
 Just run `npm install` and you should be ready to go
 
+## Compatibility
+
+Does not support IE11
+
 ## Conventions
 
 Use [SUIT](http://suitcss.github.com) for naming classes
