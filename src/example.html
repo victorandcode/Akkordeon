@@ -51,7 +51,7 @@
     </dl>
     <hr />
 
-    <h2>Open by default</h2>
+    <h2>Open first element by default</h2>
     <dl id="my-accordion-open-by-default" class="Akkordeon">
       <dt class="Akkordeon-title"> What is an accordion?</dt>
       <dd class="Akkordeon-content">
@@ -70,6 +70,23 @@
 
     <h2>Open multiple</h2>
     <dl id="my-accordion-open-multiple" class="Akkordeon">
+      <dt class="Akkordeon-title"> What is an accordion?</dt>
+      <dd class="Akkordeon-content">
+        <p>Colloquially known as a squeezebox, it's a box-shaped musical instrument</p>
+      </dd>
+      <dt class="Akkordeon-title"> Where does the name come from?</dt>
+      <dd class="Akkordeon-content">
+        <p>It comes from the German Akkordeon, which is derived from Akkord -- "musical chord, concord of sounds"</p>
+      </dd>
+      <dt class="Akkordeon-title"> When should you use one for web development?</dt>
+      <dd class="Akkordeon-content">
+        <p>Whenever you need progressive disclosure. In other words, when you need to highlight some important information (title) and only show details if the user is interested (content).</p>
+      </dd>
+    </dl>
+
+    <h2>Load async</h2>
+    <button id="loadAsync">Load async movie "A new Hope" from star wars API</button>
+    <dl id="my-accordion-load-async" class="Akkordeon">
       <dt class="Akkordeon-title"> What is an accordion?</dt>
       <dd class="Akkordeon-content">
         <p>Colloquially known as a squeezebox, it's a box-shaped musical instrument</p>
@@ -120,6 +137,33 @@
      new akkordeon.Akkordeon(document.getElementById("my-accordion-open-multiple"), {
       canOpenMultiple: true,
     })
+
+    /**
+     * Load async
+     */
+     const loadAsyncAccordion = new akkordeon.Akkordeon(document.getElementById("my-accordion-load-async"))
+
+
+    /**
+     * Async loading of elements
+     */
+
+     const loadAsyncElement = () => {
+      fetch('https://swapi.co/api/films/1/')
+        .then(res => res.json())
+        .then((data) => {
+          const title = data.title
+          const director = data.director
+          loadAsyncAccordion.insertNewTitleContentPair(title, director)
+        }).catch(() => {
+          alert("There was an error calling the api")
+        })
+     }
+
+     document
+      .getElementById("loadAsync")
+      .addEventListener("click", loadAsyncElement)
+
   </script>
 </body>
 </html>

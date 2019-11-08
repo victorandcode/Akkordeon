@@ -63,6 +63,13 @@ There is big debate as to where an accordion icon should be located, based on th
 |`onToggle`|Callback when element is clicked|`(titleElement: Element, contentElement: Element, index: number) => {}`|null|
 |`canOpenMultiple`|Enable opening multiple elements|`boolean`|false|
 
+## Public methods
+
+|Method|Description|
+|----|----|
+|`toggleAtIndex(index: number)`|Toggles element at index|
+|`insertNewTitleContentPair(title: string, content: string)`|Adds new element to accordion with respective title and content|
+
 ## 👨‍💻 Development
 
 Just run `npm install` and you should be ready to go

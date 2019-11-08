@@ -87,30 +87,39 @@ export class Akkordeon {
   }
 
   /**
-   * Sets attributes and callbacks for title elements to be accessible
-   * and interactable
+   * Iterates over title elements and initialises them
    */
   _initialiseTitleElements() {
     this.titleElements.forEach((titleElement, index) => {
       const contentElement = this.contentElements[index]
-
-      titleElement.addEventListener("click", () =>
-        this._onTitleClick(titleElement, contentElement, index),
-      )
-      titleElement.addEventListener("keydown", e =>
-        this._onTitleKeydown(e, titleElement, contentElement, index),
-      )
-      titleElement.setAttribute("role", "tab")
-      titleElement.setAttribute("tabindex", "0")
-      titleElement.setAttribute("aria-selected", "false")
-      titleElement.setAttribute(
-        "aria-controls",
-        `contentElement-${this.ids[index]}`,
-      )
-      const expansionIcon = document.createElement("span")
-      expansionIcon.classList.add("Akkordeon-expansionIcon")
-      titleElement.prepend(expansionIcon)
+      this._initialiseTitleElement(titleElement, contentElement, index)
     })
+  }
+
+  /**
+   * Sets attributes and callbacks for title elements to be accessible
+   * and interactable
+   * @param {Element} titleElement Element to attach events and attributes to
+   * @param {Element} contentElement Associated content element
+   * @param {number} index Index of title element
+   */
+  _initialiseTitleElement(titleElement, contentElement, index) {
+    titleElement.addEventListener("click", () =>
+      this._onTitleClick(titleElement, contentElement, index),
+    )
+    titleElement.addEventListener("keydown", e =>
+      this._onTitleKeydown(e, titleElement, contentElement, index),
+    )
+    titleElement.setAttribute("role", "tab")
+    titleElement.setAttribute("tabindex", "0")
+    titleElement.setAttribute("aria-selected", "false")
+    titleElement.setAttribute(
+      "aria-controls",
+      `contentElement-${this.ids[index]}`,
+    )
+    const expansionIcon = document.createElement("span")
+    expansionIcon.classList.add("Akkordeon-expansionIcon")
+    titleElement.prepend(expansionIcon)
   }
 
   /**
@@ -176,18 +185,25 @@ export class Akkordeon {
   }
 
   /**
-   * Sets attributes for content elements to be accessible and have
-   * relevant animation
+   * Iterates over content elements to set attributes
    */
   _initialiseContentElements() {
     this.contentElements.forEach((contentElement, index) => {
-      contentElement.style.transitionDuration = this.config.delay + "ms"
-      // Set elements hidden by default
-      contentElement.classList.add("is-hidden")
-      contentElement.setAttribute("role", "tabpanel")
-      contentElement.setAttribute("id", `contentElement-${this.ids[index]}`)
-      contentElement.setAttribute("aria-expanded", "false")
+      this._initialiseContentElement(contentElement, index)
     })
+  }
+
+  /**
+   * Sets attributes for content elements to be accessible and have
+   * relevant animation
+   */
+  _initialiseContentElement(contentElement, index) {
+    contentElement.style.transitionDuration = this.config.delay + "ms"
+    // Set elements hidden by default
+    contentElement.classList.add("is-hidden")
+    contentElement.setAttribute("role", "tabpanel")
+    contentElement.setAttribute("id", `contentElement-${this.ids[index]}`)
+    contentElement.setAttribute("aria-expanded", "false")
   }
 
   /**
@@ -234,5 +250,35 @@ export class Akkordeon {
         `${index} index not found. Accordion has only ${titleElementLength} elements`,
       )
     }
+  }
+
+  /**
+   *
+   * @param {string} title Text for the new title element
+   * @param {string} content Text for the new content element
+   */
+  insertNewTitleContentPair(title, content) {
+    // Create new elements
+    const dt = document.createElement("dt")
+    dt.innerHTML = title
+    dt.classList.add("Akkordeon-title")
+
+    const dd = document.createElement("dl")
+    dd.innerHTML = content
+    dd.classList.add("Akkordeon-content")
+
+    const newElementsIndex = this.titleElements.length
+
+    // Update local state
+    this.titleElements.push(dt)
+    this.contentElements.push(dd)
+
+    // Initialise nodes
+    this._initialiseTitleElement(dt, dd, newElementsIndex)
+    this._initialiseContentElement(dd, newElementsIndex)
+
+    // Add elements to DOM tree
+    this.containerElement.appendChild(dt)
+    this.containerElement.appendChild(dd)
   }
 }
