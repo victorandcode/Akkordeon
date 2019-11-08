@@ -15,6 +15,7 @@
 - Can open multiple panels
 - Can open an element by default
 - Callback when element is toggled
+- Add elements dynamically
 
 ## 🚶‍♂️ Getting started
 
